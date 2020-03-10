@@ -1,0 +1,23 @@
+<aura:component description="GRE_StaefulPagination" implements="flexipage:availableForAllPageTypes"
+                controller="GRE_PaginationController">
+    <aura:attribute name="amountRecordPerPage" type="Integer" default="6"/>
+    <aura:attribute name="startPage" type="Integer" default="0"/>
+    <aura:attribute name="endPage" type="Integer"/>
+    <aura:attribute name="totalRecords" type="Integer"/>
+    <aura:attribute name="columns" type="Object[]"/>
+    <aura:attribute name="allData" type="Object[]"/>
+    <aura:attribute name="data" type="Object[]"/>
+    <aura:attribute name="selectedRows" type="List"/>
+    <aura:attribute name="state" type="Object"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <lightning:datatable keyField="Id" data="{!v.data}" columns="{!v.columns}" onrowselection="{!c.updateSelectedRow}"
+                         selectedRows="{!v.selectedRows}"/>
+
+    <lightning:buttonGroup>
+        <lightning:button label="Previous" variant="brand" disabled="{!v.startPage==0}" onclick="{!c.previous}"/>
+        <lightning:button label="Next" variant="brand" onclick="{!c.next}"
+                          disabled="{!v.endPage + 1 >= v.totalRecords}"/>
+    </lightning:buttonGroup>
+</aura:component>
